@@ -6,9 +6,9 @@ const ConversationSchema = new mongoose.Schema({
         required: [true, "is required"],
         ref: 'User'
     },
-    lastMessage: {
+    last: {
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, "is required"],
+        required: true,
         ref: 'Chat'
     }
 }, { timestamps: true });

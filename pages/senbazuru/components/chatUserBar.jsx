@@ -45,6 +45,8 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
                 return
             }
 
+            console.log(dataJson);
+
             setAnchorEl(null)
             await getConversations();
             setActualChat(conversations.length > 1 ? conversations[0] : false);

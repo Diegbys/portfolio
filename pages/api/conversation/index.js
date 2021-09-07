@@ -9,7 +9,6 @@ export default async function handler(req, res) {
     const newConversation = new Conversation({
         members: [new mongoose.Types.ObjectId(req.body.senderId), new mongoose.Types.ObjectId(req.body.receiverId)]
     })
-    console.log(newConversation);
 
     try {
 

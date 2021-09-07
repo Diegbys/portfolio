@@ -11,17 +11,23 @@ export default async function handler(req, res) {
         case 'GET':
             try {
 
+                const populate = { path: 'members', select: 'firstName lastName email' }
+                const populateLast = { path: 'last', select: '' }
+
+
+
                 const conversation = await Conversation.find({
                     members: { $in: new mongoose.Types.ObjectId(id) }
-                }).populate('members', {
-                    firstName: 1,
-                    lastName: 1,
-                    email: 1,
-                });
+                }).populate(populate).populate(populateLast);
 
                 // conversation.fore
-                const chat = await Chat.find({ conversation_id: conversation[0]._id }).limit(1).sort({createdAt: -1});
-                console.log(chat);
+                // conversation.forEach(async (c, index) => {
+                //     let chat = await Chat.find({ conversation_id: c._id }).limit(1).sort({ createdAt: -1 });
+                //     console.log(chat[0]);
+                //     conversation[index]['lastMessage'] = chat[0];
+                // });
+
+                console.log(conversation);
 
                 return res.status(200).json({ success: true, conversation });
 
