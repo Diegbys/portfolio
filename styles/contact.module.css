@@ -1,0 +1,39 @@
+.formContainer {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.image > div {
+    max-height: 400px !important;
+}
+
+.emailContainer {
+    display: flex;
+    align-items: center;
+}
+
+.emailContainer > svg {
+    margin-right: 10px !important;
+}
+
+.emailContainer > h6 > a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.titleContact {
+    font-size: 60px !important;
+}
+
+@media (max-width: 1200px) {
+    .titleContact {
+        font-size: 50px !important;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .titleContact {
+        font-size: 46px !important;
+    }
+}

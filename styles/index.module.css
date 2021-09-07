@@ -1,0 +1,83 @@
+.containerHeader {
+    margin-top: -64px;
+    position: relative;
+}
+
+.containerHeader > div:nth-child(2) {
+    display: block !important;
+    /* height: 600px; */
+}
+
+.opacityBackground {
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.containerHeader h1,
+.containerHeader h5 {
+    color: white;
+}
+
+.containerHeader h1 {
+    font-size: 70px;
+}
+
+.imageHeader {
+    display: block !important;
+}
+
+.logoTitle {
+    flex-grow: 1;
+}
+
+.containerText {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    width: 100px;
+    background: black;
+}
+
+.white {
+    color: white !important;
+}
+
+.flags {
+    margin-left: 10px;
+}
+
+@media (max-width: 992px) {
+    .containerHeader .containerText {
+        width: 100%;
+    }
+    .containerHeader h1 {
+        font-size: 40px;
+    }
+
+    .containerHeader h5 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .firstGrid {
+        margin-bottom: 10px !important;
+    }
+
+    .firstGrid h4 {
+        font-size: 30px !important;
+    }
+
+    .firstGrid h4 span:first-child {
+        font-size: 40px !important;
+    }
+}
