@@ -12,24 +12,17 @@ export default async function handler(req, res) {
             try {
 
                 const populate = { path: 'members', select: 'firstName lastName email' }
-                const populateLast = { path: 'last', select: '' }
 
-
-
-                const conversation = await Conversation.find({
+                const fetchConversation = await Conversation.find({
                     members: { $in: new mongoose.Types.ObjectId(id) }
-                }).populate(populate).populate(populateLast);
+                }).populate(populate).lean();
 
-                // conversation.fore
-                // conversation.forEach(async (c, index) => {
-                //     let chat = await Chat.find({ conversation_id: c._id }).limit(1).sort({ createdAt: -1 });
-                //     console.log(chat[0]);
-                //     conversation[index]['lastMessage'] = chat[0];
-                // });
+                let conversation = fetchConversation.map(async c => {
+                    let lastMessage = await Chat.find({ conversation_id: c._id }).limit(1).sort({ createdAt: -1 }).lean();
+                    return { ...c, ...{ lastMessage: lastMessage[0] } };
+                });
 
-                console.log(conversation);
-
-                return res.status(200).json({ success: true, conversation });
+                return res.status(200).json({ success: true, conversation: await Promise.all(conversation) });
 
             } catch (error) {
                 console.log(error);

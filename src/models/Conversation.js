@@ -8,7 +8,7 @@ const ConversationSchema = new mongoose.Schema({
     },
     last: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false,
         ref: 'Chat'
     }
 }, { timestamps: true });

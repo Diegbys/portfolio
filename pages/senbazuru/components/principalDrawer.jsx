@@ -60,8 +60,8 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
                                             {member.firstName} {member.lastName}
                                         </Typography>
                                         <Typography variant="subtitle2">
-                                            Hola como estas?
-                                    </Typography>
+                                            {conversation.lastMessage?.text}
+                                        </Typography>
                                     </ListItemText>
                                 </ListItem>
                             )
