@@ -4,6 +4,7 @@ import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar }
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
+import moment from 'moment';
 
 import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
@@ -59,7 +60,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
                                         <Typography variant="subtitle1">
                                             {member.firstName} {member.lastName}
                                         </Typography>
-                                        <Typography variant="subtitle2">
+                                        <Typography variant="subtitle2" noWrap>
                                             {conversation.lastMessage?.text}
                                         </Typography>
                                     </ListItemText>

@@ -3,6 +3,7 @@ import { CssBaseline } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useRouter } from 'next/dist/client/router';
 import { io } from "socket.io-client";
+import moment from 'moment';
 
 import Styles from '../../styles/senbazuru.module.css';
 import HomeSenbazuru from './home';
@@ -35,7 +36,8 @@ export default function Senbazuru(props) {
             setArrivalMessage({
                 sender: data.senderId,
                 text: data.text,
-                createdAt: Date.now()
+                createdAt: Date.now(),
+                conversation_id: data.conversation_id
             });
         });
     }, []);
@@ -57,7 +59,8 @@ export default function Senbazuru(props) {
         socket.current.emit("sendMessage", {
             senderId: user._id,
             receiverId: actualChat.members.find(member => member._id !== user._id)._id,
-            text: newMessage
+            text: newMessage,
+            conversation_id: actualChat._id
         });
     }
 

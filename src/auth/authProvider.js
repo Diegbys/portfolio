@@ -29,7 +29,6 @@ export default function AuthProvider({ children }) {
 
             const dataJson = await res.json();
 
-            console.log(dataJson);
             if (!dataJson.success) {
                 return
             }
