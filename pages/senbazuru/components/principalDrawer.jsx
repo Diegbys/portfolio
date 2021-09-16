@@ -4,7 +4,6 @@ import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar }
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
-import moment from 'moment';
 
 import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
@@ -21,7 +20,12 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
     return (
         <div>
             <div className={classes.toolbar + ' ' + Styles.userToolbar}>
-                <Avatar alt="Remy Sharp" src='./img/header.png' />
+                <Avatar
+                    alt="User Image"
+                    src='./img/header.png'
+                    onClick={() => console.log('prueba')}
+                    style={{ cursor: 'pointer' }}
+                />
                 <div>
                     <IconButton
                         color="inherit"
@@ -39,6 +43,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
                 </div>
 
             </div>
+
             <Divider />
 
             <div className={Styles.inputSearchContainer}>
@@ -47,6 +52,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
             </div>
 
             <Divider />
+
             <List>
                 {!loading ? (
                     conversations.length > 0 ?

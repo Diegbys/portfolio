@@ -182,6 +182,7 @@
 .dateIndicator {
     margin: 0 auto;
     padding: 2px 15px;
+    margin-top: 20px !important;
 }
 
 /* RESPONSIVE */

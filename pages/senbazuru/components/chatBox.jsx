@@ -61,8 +61,6 @@ export default function ChatBox({ messages, searching }) {
                     let b = messageIndex > 0 ? moment(messages[messageIndex - 1].createdAt) : a;
                     let date = '';
 
-                    console.log(a.date(), b.date(), a.month(), b.month(), message.text);
-
                     if (a.date() > b.date() || a.month() > b.month()) {
                         changeDate = true;
                     }
