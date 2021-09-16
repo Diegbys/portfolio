@@ -179,6 +179,11 @@
     width: 100%;
 }
 
+.dateIndicator {
+    margin: 0 auto;
+    padding: 2px 15px;
+}
+
 /* RESPONSIVE */
 
 @media (min-width: 600px) {

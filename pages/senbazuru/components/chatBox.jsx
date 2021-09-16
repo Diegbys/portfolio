@@ -1,13 +1,15 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Paper } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment';
 
 import Styles from '../../../styles/senbazuru.module.css';
 import useAuth from '../../../src/auth/useAuth';
+import i18nContext from '../../../src/context/i18n';
 
 export default function ChatBox({ messages, searching }) {
     const { user } = useAuth();
+    const { i18n } = React.useContext(i18nContext);
     const messagesEndRef = React.useRef(null);
     let lastSender = '';
     let changeDate = true;
@@ -27,6 +29,20 @@ export default function ChatBox({ messages, searching }) {
 
     React.useEffect(scrollToBottom, [messages]);
 
+    const getDateIndicator = (date) => {
+        let yesterday = moment().subtract(1, 'days');
+
+        if (date.date() == moment().date() && date.month() == moment().month()) {
+            return i18n.today;
+        }
+
+        if (date.date() == yesterday.date() && date.month() == yesterday.month()) {
+            return i18n.yesterday;
+        }
+
+        return date.format('MM/DD/YYYY');
+    }
+
     return (
         <div className={Styles.chatContainer}>
 
@@ -37,14 +53,28 @@ export default function ChatBox({ messages, searching }) {
             </>}
 
             {messages ?
-                messages.map(message => {
-                    let own = message.sender_id == user._id;
-                    moment.locale('es');
-                    console.log(moment(message.createdAt).day());
+                messages.map((message, messageIndex) => {
 
-                    const date = (<div>
-                        Hoy
-                    </div>);
+                    moment.locale('es');
+                    let own = message.sender_id == user._id;
+                    let a = moment(message.createdAt);
+                    let b = messageIndex > 0 ? moment(messages[messageIndex - 1].createdAt) : a;
+                    let date = '';
+
+                    console.log(a.date(), b.date(), a.month(), b.month(), message.text);
+
+                    if (a.date() > b.date() || a.month() > b.month()) {
+                        changeDate = true;
+                    }
+
+                    if (changeDate) {
+                        date = (<Paper className={Styles.dateIndicator} elevation={1}>
+                            {getDateIndicator(a)}
+                        </Paper>);
+
+                        changeDate = false;
+                        lastSender = '';
+                    }
 
                     return (
                         <>
@@ -59,7 +89,7 @@ export default function ChatBox({ messages, searching }) {
                                 </Typography>
                                 <div className={Styles.footerMessage}>
                                     <Typography variant='subtitle2' color="initial">
-                                        {moment(message.createdAt).format('h:mm:ss a')}
+                                        {moment(message.createdAt).format('h:mm a')}
                                     </Typography>
                                 </div>
                             </div>

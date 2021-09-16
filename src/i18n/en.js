@@ -35,5 +35,8 @@ export default {
     incorrect_password: 'Contraseña incorrecta',
     password_length: 'The password must be greater than 8 characters',
     invalid_email: 'Enter a valid email',
-    write_message_here: 'Writte a message here'
+    write_message_here: 'Writte a message here',
+    SENBAZURU: '',
+    today: 'Today',
+    yesterday: 'Yesterday'
 }

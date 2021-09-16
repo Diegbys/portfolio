@@ -25,7 +25,12 @@ const UserSchema = new mongoose.Schema({
     friendsRequests: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    imgUrl: String
 });
+
+UserSchema.methods.setImgUrl = function setImgUrl(filename) {
+    this.imgUrl = `${process.env.APP_HOST}:${process.env.APP_PORT}/public/${filename}`
+}
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

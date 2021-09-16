@@ -36,5 +36,8 @@ export default {
     incorrect_password: 'Contraseña incorrecta',
     password_length: 'La contraseña debe ser mayor a 8 caracteres',
     invalid_email: 'Ingrese un email valido',
-    write_message_here: 'Escribe un mensaje aquí'
+    write_message_here: 'Escribe un mensaje aquí',
+    SENBAZURU: '',
+    today: 'Hoy',
+    yesterday: 'Ayer'
 }
