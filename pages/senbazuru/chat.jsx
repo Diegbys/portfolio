@@ -1,7 +1,5 @@
 import React from 'react';
-import { Paper, Typography } from '@material-ui/core';
-import Skeleton from '@material-ui/lab/Skeleton';
-import moment from 'moment';
+import { Paper } from '@material-ui/core';
 
 import Styles from '../../styles/senbazuru.module.css';
 import useAuth from '../../src/auth/useAuth';
@@ -11,7 +9,6 @@ import i18nContext from '../../src/context/i18n';
 export default function Chat({ refreshSendMessage, arrivalMessage }) {
     const { user, actualChat, setConversations, conversations, getConversations } = useAuth();
     const { i18n } = React.useContext(i18nContext);
-    const messagesEndRef = React.useRef(null);
     const [searching, setSearching] = React.useState(true);
     const [messages, setMessages] = React.useState([]);
     const [newMessage, setNewMessage] = React.useState("");
@@ -92,12 +89,6 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
 
     }
 
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-
-    React.useEffect(scrollToBottom, [messages]);
-
     const refreshLastMessage = (lastMessage) => {
         let oldConv = conversations;
         setConversations("");
@@ -108,6 +99,7 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
     return (
         <>
             <ChatBox messages={messages} searching={searching} />
+            
             <Paper elevation={1} className={Styles.inputNewMessage}>
                 <input
                     disbled={sending ? "true" : "false"}

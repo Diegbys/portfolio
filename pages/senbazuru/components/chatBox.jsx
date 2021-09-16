@@ -1,18 +1,14 @@
 import React from 'react';
-import { Paper, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment';
 
-import Styles from '../../styles/senbazuru.module.css';
-import useAuth from '../../src/auth/useAuth';
-import i18nContext from '../../src/context/i18n';
+import Styles from '../../../styles/senbazuru.module.css';
+import useAuth from '../../../src/auth/useAuth';
 
-export default function ChatBox({ messages }) {
-    const { user, actualChat, setConversations, conversations, getConversations } = useAuth();
+export default function ChatBox({ messages, searching }) {
+    const { user } = useAuth();
     const messagesEndRef = React.useRef(null);
-    const [searching, setSearching] = React.useState(true);
-    const [messages, setMessages] = React.useState([]);
-    const [newMessage, setNewMessage] = React.useState("");
     let lastSender = '';
     let changeDate = true;
 
