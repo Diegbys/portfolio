@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
+export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration }) {
     const classes = useStyles();
     const { setActualChat, user, conversations } = useAuth();
 
@@ -23,7 +23,6 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
                 <Avatar
                     alt="User Image"
                     src='./img/header.png'
-                    onClick={() => console.log('prueba')}
                     style={{ cursor: 'pointer' }}
                 />
                 <div>
@@ -37,6 +36,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading }) {
                     <IconButton
                         color="inherit"
                         aria-label="open options"
+                        onClick={() => setUserConfiguration(true)}
                     >
                         <SettingsIcon />
                     </IconButton>

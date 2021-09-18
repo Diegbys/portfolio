@@ -5,6 +5,7 @@ import { Drawer, Hidden, } from '@material-ui/core';
 import Styles from '../../styles/senbazuru.module.css';
 import AllUsersDrawer from './components/allUsersDrawer';
 import PrincipalDrawer from './components/principalDrawer';
+import UserConfiguration from './components/userConfiguration';
 import useAuth from '../../src/auth/useAuth';
 
 // const useStylesAddFriend = makeStyles((theme) => ({
@@ -18,6 +19,7 @@ import useAuth from '../../src/auth/useAuth';
 export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
     const theme = useTheme();
     const [openAllUsers, setOpenAllUsers] = React.useState(false);
+    const [openUserConfiguration, setUserConfiguration] = React.useState(false);
     const { getConversations } = useAuth();
     const [loading, setLoading] = React.useState(false);
 
@@ -30,7 +32,11 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
     }, [])
 
     const drawer = (
-        <PrincipalDrawer loading={loading} setOpenAllUsers={setOpenAllUsers} />
+        <PrincipalDrawer
+            loading={loading}
+            setOpenAllUsers={setOpenAllUsers}
+            setUserConfiguration={setUserConfiguration}
+        />
     );
 
     return (
@@ -67,6 +73,17 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
                 ModalProps={{ keepMounted: true }}
             >
                 <AllUsersDrawer setOpenAllUsers={setOpenAllUsers} />
+            </Drawer>
+            <Drawer
+                container={container}
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={openUserConfiguration}
+                onClose={() => setUserConfiguration(false)}
+                classes={{ paper: Styles.drawerPaper }}
+                ModalProps={{ keepMounted: true }}
+            >
+                <UserConfiguration setUserConfiguration={setUserConfiguration} />
             </Drawer>
             {/* <Modal
                 aria-labelledby="Add friends!"

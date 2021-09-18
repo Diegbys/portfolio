@@ -63,6 +63,14 @@
     flex-grow: 1;
 }
 
+/* User configuration */
+.avatarUser{
+    cursor: pointer;
+    width: 150px !important;
+    height: 150px !important;
+    margin: 20px auto 0 auto;
+}
+
 /* Home */
 .indexChat {
     height: 100%;
