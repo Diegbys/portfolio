@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration }) {
     const classes = useStyles();
     const theme = useTheme();
-    const { setActualChat, user, conversations } = useAuth();
+    const { setActualChat, user, conversations, onlineUsers } = useAuth();
 
     return (
         <div>
@@ -60,8 +60,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     conversations.length > 0 ?
                         conversations.map((conversation, index) => {
                             let member = conversation.members.filter(e => e._id != user._id)[0];
-                            console.log(member)
-
+                            
                             return (
                                 <ListItem key={index} button className={Styles.listItemUser} onClick={() => setActualChat(conversation)}>
                                     <Badge
@@ -69,7 +68,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                         variant="dot"
                                         color="primary"
-                                        invisible={false}
+                                        invisible={!onlineUsers.map(e => e.userId).includes(member._id)}
                                     >
                                         <Avatar
                                             src={member.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${member.imgUrl}` : './img/header.png'}

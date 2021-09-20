@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Senbazuru(props) {
-    const { user, isLogged, actualChat } = useAuth();
+    const { user, isLogged, actualChat, setOnlineUsers } = useAuth();
     const router = useRouter();
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -46,7 +46,7 @@ export default function Senbazuru(props) {
         if (user) {
             socket.current.emit("addUser", user._id);
             socket.current.on("getUsers", users => {
-                // console.log(users);
+                setOnlineUsers(users);
             })
         }
     }, [user]);

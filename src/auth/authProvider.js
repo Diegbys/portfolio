@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const [conversations, setConversations] = useState([]);
     const [actualChat, setActualChat] = useState(null);
 
@@ -32,7 +33,7 @@ export default function AuthProvider({ children }) {
             if (!dataJson.success) {
                 return
             }
-            
+
             setConversations(dataJson.conversation);
         } catch (error) {
             console.log(error);
@@ -53,7 +54,9 @@ export default function AuthProvider({ children }) {
         setConversations,
         getConversations,
         actualChat,
-        setActualChat
+        setActualChat,
+        setOnlineUsers,
+        onlineUsers
     }
 
     return (
