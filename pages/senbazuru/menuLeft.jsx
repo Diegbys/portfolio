@@ -8,14 +8,6 @@ import PrincipalDrawer from './components/principalDrawer';
 import UserConfiguration from './components/userConfiguration';
 import useAuth from '../../src/auth/useAuth';
 
-// const useStylesAddFriend = makeStyles((theme) => ({
-//     modal: {
-//         display: 'flex',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// }));
-
 export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
     const theme = useTheme();
     const [openAllUsers, setOpenAllUsers] = React.useState(false);
@@ -25,11 +17,14 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
-    React.useEffect(async () => {
-        setLoading(true);
-        await getConversations();
-        setLoading(false);
-    }, [])
+    React.useEffect(() => {
+        async function getConvs() {
+            setLoading(true);
+            await getConversations();
+            setLoading(false);
+        }
+        getConvs();
+    }, [getConversations])
 
     const drawer = (
         <PrincipalDrawer
@@ -85,25 +80,6 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
             >
                 <UserConfiguration setUserConfiguration={setUserConfiguration} />
             </Drawer>
-            {/* <Modal
-                aria-labelledby="Add friends!"
-                aria-describedby="You can add friends here"
-                className={classesAddFriend.modal}
-                open={openAddFriends}
-                onClose={() => setOpenAddFriends(false)}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={openAddFriends}>
-                    <Paper elevation={1}>
-                        <h2>Transition modal</h2>
-                        <p>react-transition-group animates me.</p>
-                    </Paper>
-                </Fade>
-            </Modal> */}
         </nav >
     );
 }

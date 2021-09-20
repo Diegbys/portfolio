@@ -45,9 +45,9 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
         if (arrivalMessage && actualChat?.members.map(member => member._id).includes(arrivalMessage.sender)) {
             setMessages(prev => [...prev, arrivalMessage]);
         }
-        getConversations()
+        getConversations();
 
-    }, [arrivalMessage, actualChat]);
+    }, [arrivalMessage, actualChat, getConversations]);
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -99,7 +99,7 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
     return (
         <>
             <ChatBox messages={messages} searching={searching} />
-            
+
             <Paper elevation={1} className={Styles.inputNewMessage}>
                 <input
                     disbled={sending ? "true" : "false"}

@@ -28,7 +28,7 @@ export default function Senbazuru(props) {
         if (!isLogged()) {
             router.push('/senbazuru/login');
         }
-    }, []);
+    }, [isLogged, router]);
 
     React.useEffect(() => {
         socket.current = io("ws://localhost:8900");
@@ -49,7 +49,7 @@ export default function Senbazuru(props) {
                 setOnlineUsers(users);
             })
         }
-    }, [user]);
+    }, [user, setOnlineUsers]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -68,7 +68,6 @@ export default function Senbazuru(props) {
         <div className={Styles.root}>
             <Head>
                 <link rel="icon" href="/img/senbazuru.svg" />
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <title>Senbazuru</title>
                 <meta
                     name="description"

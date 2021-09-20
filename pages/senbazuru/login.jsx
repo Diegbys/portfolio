@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Grid, TextField, Button, Typography, InputAdornment, IconButton } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
+import { useTheme } from '@material-ui/styles';
 import Link from 'next/link';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
@@ -17,6 +18,7 @@ export default function Login() {
     const { login, setLoading, setDialog, setOpenDialog } = useAuth();
     const { i18n } = React.useContext(i18nContext);
     const [showPassword, setShowPassword] = React.useState(false);
+    const theme = useTheme();
 
     const [data, setData] = React.useState({
         email: '',
@@ -100,7 +102,7 @@ export default function Login() {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <AccountCircleIcon color="textSecondary" />
+                                            <AccountCircleIcon />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -157,7 +159,7 @@ export default function Login() {
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Link href="/senbazuru/register">
+                            <Link passHref href="/senbazuru/register">
                                 <Typography variant="subtitle2" color="textSecondary" className={Styles.linkRegister}>
                                     {i18n.register}
                                 </Typography>

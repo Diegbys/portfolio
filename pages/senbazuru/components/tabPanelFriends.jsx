@@ -48,7 +48,6 @@ export default function TabPanelFriends({ friends, setFriends, loading, setOpenA
         let returned = false
         conversations.forEach(conversation => {
             if (conversation.members.map(e => e._id).includes(friend._id)) {
-                console.log('si')
                 setActualChat(conversation);
                 setOpenAllUsers(false);
                 returned = true;
@@ -103,7 +102,7 @@ export default function TabPanelFriends({ friends, setFriends, loading, setOpenA
 
                 friends?.length > 0 ?
                     friends.map((friend, index) => (
-                        <ListItem index={index} className={Styles.listItemUser}>
+                        <ListItem key={index} className={Styles.listItemUser}>
                             <Avatar alt="Remy Sharp" src='./img/header.png' />
                             <div className={Styles.listAdd}>
                                 <Typography variant="subtitle1">

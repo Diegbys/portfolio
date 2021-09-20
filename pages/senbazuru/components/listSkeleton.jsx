@@ -7,8 +7,8 @@ import Styles from '../../../styles/senbazuru.module.css';
 export default function ListSkeleton() {
 
     return (
-        ['', '', '', '', '', ''].map(e => (
-            < ListItem button className={Styles.listItemUser}>
+        ['', '', '', '', '', ''].map((e, index) => (
+            < ListItem key={index} button className={Styles.listItemUser}>
                 <Skeleton variant="circle" width={50} height={50} />
                 <ListItemText className={Styles.listTextUser}>
                     <Skeleton variant="text" width="80%" />

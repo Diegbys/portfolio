@@ -56,10 +56,6 @@ export default function AllUsersDrawer({ setOpenAllUsers }) {
         setValue(newValue);
     };
 
-    React.useEffect(() => {
-        getAllFriendRequests();
-    }, []);
-
     const getAllFriendRequests = async () => {
         setLoading(true);
         try {
@@ -82,9 +78,9 @@ export default function AllUsersDrawer({ setOpenAllUsers }) {
         }
     }
 
-    React.useEffect(async () => {
-        getAllFriends();
-    }, [friendRequests]);
+    React.useEffect(() => {
+        getAllFriendRequests();
+    }, []);
 
     const getAllFriends = async () => {
         setLoading(true);
@@ -107,9 +103,9 @@ export default function AllUsersDrawer({ setOpenAllUsers }) {
         }
     }
 
-    React.useEffect(() => {
-        getUsers();
-    }, [friends]);
+    React.useEffect(async () => {
+        getAllFriends();
+    }, [friendRequests]);
 
     const getUsers = async () => {
         try {
@@ -127,6 +123,10 @@ export default function AllUsersDrawer({ setOpenAllUsers }) {
             console.log(error);
         }
     }
+
+    React.useEffect(() => {
+        getUsers();
+    }, [friends]);
 
     return (
         <div>

@@ -61,9 +61,9 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <Avatar src={actualChatUser.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${actualChatUser.imgUrl}` : './img/header.png'} />
+                <Avatar src={actualChatUser?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${actualChatUser.imgUrl}` : './img/header.png'} />
                 <Typography variant="h6" noWrap className={Styles.textAppBar}>
-                    {actualChatUser.firstName} {actualChatUser.lastName}
+                    {actualChatUser?.firstName} {actualChatUser?.lastName}
                 </Typography>
                 <IconButton
                     color="inherit"

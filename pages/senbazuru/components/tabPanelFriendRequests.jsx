@@ -51,7 +51,7 @@ export default function TabPanelFriendRequests({ friendRequests, loading, user, 
 
                 friendRequests?.length > 0 ?
                     friendRequests.map((requester, index) => (
-                        <ListItem index={index} className={Styles.listItemUser}>
+                        <ListItem key={index} className={Styles.listItemUser}>
                             <Avatar alt="Remy Sharp" src='./img/header.png' />
                             <div className={Styles.listAdd}>
                                 <Typography variant="subtitle1">

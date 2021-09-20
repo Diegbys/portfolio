@@ -6,7 +6,7 @@ import Axios from 'axios';
 import useAuth from '../../../src/auth/useAuth';
 import Styles from '../../../styles/senbazuru.module.css';
 
-export default function userConfiguration({ setUserConfiguration }) {
+export default function UserConfiguration({ setUserConfiguration }) {
     const { user, setLoading } = useAuth();
 
     const [imageSelected, setImageSelected] = React.useState("");
@@ -71,7 +71,6 @@ export default function userConfiguration({ setUserConfiguration }) {
                 src={`https://res.cloudinary.com/mudarra/image/upload/v1631925154/${actualImage}`}
                 onClick={() => setShowEditImage(!showEditImage)}
                 className={Styles.avatarUser}
-                children={<div className={Styles.avatarHoover}>sdfasdf</div>}
             />
 
             <Typography align="center" style={{ marginTop: 20 }} variant="h5">

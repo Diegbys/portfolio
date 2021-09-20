@@ -3,6 +3,10 @@
     height: 100vh;
 }
 
+.drawer {
+    color: inherit;
+}
+
 /* MenuLeft */
 
 .userToolbar {

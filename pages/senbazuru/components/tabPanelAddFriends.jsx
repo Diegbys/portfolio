@@ -80,7 +80,7 @@ export default function TabPanelAddFriends({ users, setUsers, friends, user }) {
 
             <Divider />
 
-            {users.length > 0 ?
+            {users?.length > 0 ?
                 users.map((globalUser, index) => {
                     let sended = globalUser.friendsRequests.includes(user._id);
                     return (
