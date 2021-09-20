@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         case 'GET':
             try {
 
-                const populate = { path: 'members', select: 'firstName lastName email' }
+                const populate = { path: 'members', select: 'firstName lastName email imgUrl' }
 
                 const fetchConversation = await Conversation.find({
                     members: { $in: new mongoose.Types.ObjectId(id) }

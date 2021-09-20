@@ -15,10 +15,6 @@
   margin-bottom: 50px;
 }
 
-/* .MuiBackdrop-root{
-  z-index: 9999999999 !important;
-} */
-
 /* NavBar */
 .MuiAppBar-root {
   transition: all 0.2s ease-in-out !important;
@@ -43,15 +39,6 @@
   margin-bottom: 20px !important;
   font-weight: 100 !important;
 }
-
-/* Chat */
-
-/* .senbazuru_message__218Xt::before {
-  top: 0px;
-  left: -17px;
-  border-width: 10px 10px 10px 10px;
-  border-color: transparent yellow transparent transparent;
-} */
 
 @media (max-width: 600px) {
   .container {

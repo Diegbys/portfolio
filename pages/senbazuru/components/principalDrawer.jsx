@@ -1,6 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar, Badge } from '@material-ui/core';
+import { useRouter } from 'next/dist/client/router';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration }) {
     const classes = useStyles();
+    const theme = useTheme();
     const { setActualChat, user, conversations } = useAuth();
 
     return (
@@ -22,7 +24,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
             <div className={classes.toolbar + ' ' + Styles.userToolbar}>
                 <Avatar
                     alt="User Image"
-                    src='./img/header.png'
+                    src={user?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${user.imgUrl}` : './img/header.png'}
                     style={{ cursor: 'pointer' }}
                 />
                 <div>
@@ -58,10 +60,21 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     conversations.length > 0 ?
                         conversations.map((conversation, index) => {
                             let member = conversation.members.filter(e => e._id != user._id)[0];
+                            console.log(member)
 
                             return (
                                 <ListItem key={index} button className={Styles.listItemUser} onClick={() => setActualChat(conversation)}>
-                                    <Avatar alt="Remy Sharp" src='./img/header.png' />
+                                    <Badge
+                                        overlap="circular"
+                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                        variant="dot"
+                                        color="primary"
+                                        invisible={false}
+                                    >
+                                        <Avatar
+                                            src={member.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${member.imgUrl}` : './img/header.png'}
+                                        />
+                                    </Badge>
                                     <ListItemText className={Styles.listTextUser}>
                                         <Typography variant="subtitle1">
                                             {member.firstName} {member.lastName}

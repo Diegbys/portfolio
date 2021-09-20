@@ -32,6 +32,7 @@ export default function AuthProvider({ children }) {
             if (!dataJson.success) {
                 return
             }
+            
             setConversations(dataJson.conversation);
         } catch (error) {
             console.log(error);

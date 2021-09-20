@@ -3,7 +3,7 @@ import { CssBaseline } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useRouter } from 'next/dist/client/router';
 import { io } from "socket.io-client";
-import moment from 'moment';
+import Head from 'next/head';
 
 import Styles from '../../styles/senbazuru.module.css';
 import HomeSenbazuru from './home';
@@ -66,6 +66,16 @@ export default function Senbazuru(props) {
 
     return (
         <div className={Styles.root}>
+            <Head>
+                <link rel="icon" href="/img/senbazuru.svg" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+                <title>Senbazuru</title>
+                <meta
+                    name="description"
+                    content='This is a messenger app'
+                />
+            </Head>
+
             <CssBaseline />
 
             {actualChat &&

@@ -8,6 +8,9 @@ const coreThemeObj = {
         primary: {
             main: "#1976d2"
         },
+        success: {
+            main: "#66bb6a"
+        }
     },
 }
 

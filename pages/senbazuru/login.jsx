@@ -10,6 +10,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import i18nContext from '../../src/context/i18n';
 import Styles from '../../styles/login.module.css';
 import useAuth from '../../src/auth/useAuth';
+import Layout from '../../src/components/Layout';
 
 export default function Login() {
     const router = useRouter();
@@ -64,7 +65,7 @@ export default function Login() {
                 })
                 setLoading(false);
                 setOpenDialog(true);
-                return 
+                return
             }
 
             login(dataJson.user);
@@ -76,93 +77,95 @@ export default function Login() {
     }
 
     return (
-        <div className={Styles.root}>
-            <Paper elevation={1} className={Styles.card} >
-                <Grid container spacing={3}>
+        <Layout title="Login">
+            <div className={Styles.root}>
+                <Paper elevation={1} className={Styles.card} >
+                    <Grid container spacing={3}>
 
-                    <Grid item xs={12}>
-                        <Typography variant="h4" color="primary">{i18n.login}</Typography>
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Typography variant="h4" color="primary">{i18n.login}</Typography>
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <TextField
-                            id="email"
-                            label={i18n.email}
-                            variant="outlined"
-                            size="medium"
-                            fullWidth
-                            value={data.email}
-                            onChange={handleData}
-                            error={!!errors.email}
-                            helperText={errors.email}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <AccountCircleIcon color="textSecondary" />
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="email"
+                                label={i18n.email}
+                                variant="outlined"
+                                size="medium"
+                                fullWidth
+                                value={data.email}
+                                onChange={handleData}
+                                error={!!errors.email}
+                                helperText={errors.email}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <AccountCircleIcon color="textSecondary" />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <TextField
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            label={i18n.password}
-                            variant="outlined"
-                            size="medium"
-                            fullWidth
-                            value={data.password}
-                            onChange={handleData}
-                            error={!!errors.password}
-                            helperText={errors.password}
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <LockIcon />
-                                    </InputAdornment>
-                                ),
-                                endAdornment: (
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                    </IconButton>
-                                )
-                            }}
-                        />
-                    </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                label={i18n.password}
+                                variant="outlined"
+                                size="medium"
+                                fullWidth
+                                value={data.password}
+                                onChange={handleData}
+                                error={!!errors.password}
+                                helperText={errors.password}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LockIcon />
+                                        </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                        </IconButton>
+                                    )
+                                }}
+                            />
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => submit()}
-                            disabled={validateSend()}
-                        >
-                            {i18n.send}
-                        </Button>
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => submit()}
+                                disabled={validateSend()}
+                            >
+                                {i18n.send}
+                            </Button>
+                        </Grid>
 
-                    <Grid item xs={12}>
-                        <Typography variant="subtitle2" color="textSecondary">
-                            {i18n.forgot_password}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Link href="/senbazuru/register">
-                            <Typography variant="subtitle2" color="textSecondary" className={Styles.linkRegister}>
-                                {i18n.register}
+                        <Grid item xs={12}>
+                            <Typography variant="subtitle2" color="textSecondary">
+                                {i18n.forgot_password}
                             </Typography>
-                        </Link>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Link href="/senbazuru/register">
+                                <Typography variant="subtitle2" color="textSecondary" className={Styles.linkRegister}>
+                                    {i18n.register}
+                                </Typography>
+                            </Link>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Paper>
-        </div>
+                </Paper>
+            </div>
+        </Layout>
     );
 }
