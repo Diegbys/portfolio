@@ -1,18 +1,35 @@
 import React from 'react';
 import { Paper } from '@material-ui/core';
+import { useChannel } from "./components/ablyReactEffect";
 
 import Styles from '../../styles/senbazuru.module.css';
 import useAuth from '../../src/auth/useAuth';
 import ChatBox from './components/chatBox';
 import i18nContext from '../../src/context/i18n';
 
-export default function Chat({ refreshSendMessage, arrivalMessage }) {
+export default function Chat() {
     const { user, actualChat, setConversations, conversations, getConversations } = useAuth();
     const { i18n } = React.useContext(i18nContext);
     const [searching, setSearching] = React.useState(true);
     const [messages, setMessages] = React.useState([]);
     const [newMessage, setNewMessage] = React.useState("");
+    const newMessageIsEmpty = newMessage.trim().length === 0;
+    const [arrivalMessage, setArrivalMessage] = React.useState(null);
     const [sending, setSending] = React.useState(false);
+
+
+    const [channel, ably] = useChannel("chat-demo", (socket) => {
+        if (socket.data.receiverId != user._id) {
+            return
+        }
+
+        setArrivalMessage({
+            sender: socket.data.senderId,
+            text: socket.data.text,
+            createdAt: Date.now(),
+            conversation_id: socket.data.conversation_id
+        });
+    });
 
     React.useEffect(() => {
         setMessages([]);
@@ -57,6 +74,17 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
 
     const handleSubmit = async () => {
         setSending(true);
+
+        channel.publish({
+            name: "chat-message",
+            data: {
+                senderId: user._id,
+                receiverId: actualChat.members.find(member => member._id !== user._id)._id,
+                text: newMessage,
+                conversation_id: actualChat._id
+            }
+        });
+
         setNewMessage("");
 
         try {
@@ -77,8 +105,6 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
             if (!dataJson.success) {
                 return
             }
-
-            refreshSendMessage(newMessage);
 
             refreshLastMessage(dataJson.newChat);
             setMessages([...messages, dataJson.newChat]);

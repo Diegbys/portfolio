@@ -4,17 +4,19 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useRouter } from 'next/dist/client/router';
 import { io } from "socket.io-client";
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
 import Styles from '../../styles/senbazuru.module.css';
 import HomeSenbazuru from './home';
 import MenuLeft from './menuLeft';
 import useAuth from '../../src/auth/useAuth';
-import Chat from './chat';
 import ChatUserBar from './components/chatUserBar';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar
 }));
+
+const Chat = dynamic(() => import('./chat'), { ssr: false });
 
 export default function Senbazuru(props) {
     const { user, isLogged, actualChat, setOnlineUsers } = useAuth();
@@ -30,39 +32,9 @@ export default function Senbazuru(props) {
         }
     }, [isLogged, router]);
 
-    React.useEffect(() => {
-        socket.current = io(process.env.SOCKET || "https://senbazuru.herokuapp.com/");
-        socket.current.on("getMessage", data => {
-            setArrivalMessage({
-                sender: data.senderId,
-                text: data.text,
-                createdAt: Date.now(),
-                conversation_id: data.conversation_id
-            });
-        });
-    }, []);
-
-    React.useEffect(() => {
-        if (user) {
-            socket.current.emit("addUser", user._id);
-            socket.current.on("getUsers", users => {
-                setOnlineUsers(users);
-            })
-        }
-    }, [user, setOnlineUsers]);
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-
-    const refreshSendMessage = (newMessage) => {
-        socket.current.emit("sendMessage", {
-            senderId: user._id,
-            receiverId: actualChat.members.find(member => member._id !== user._id)._id,
-            text: newMessage,
-            conversation_id: actualChat._id
-        });
-    }
 
     return (
         <div className={Styles.root}>
@@ -91,10 +63,7 @@ export default function Senbazuru(props) {
                 {actualChat ?
                     <>
                         <div className={classes.toolbar} />
-                        <Chat
-                            refreshSendMessage={(newMessage) => refreshSendMessage(newMessage)}
-                            arrivalMessage={arrivalMessage}
-                        />
+                        <Chat />
                     </> :
                     <HomeSenbazuru />
                 }

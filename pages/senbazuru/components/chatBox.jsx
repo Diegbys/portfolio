@@ -78,6 +78,7 @@ export default function ChatBox({ messages, searching }) {
                         <>
                             {date}
                             <div
+                                key={messageIndex}
                                 className={`${Styles.message} 
                                     ${own ? Styles.messageRigth : Styles.messageLeft} 
                                     ${evaluateLastSender(message.sender_id) && Styles.FirstMessage}`}
