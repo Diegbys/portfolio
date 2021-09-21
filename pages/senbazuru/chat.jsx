@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Paper } from '@material-ui/core';
-import { useChannel } from "./components/ablyReactEffect";
+import Ably from "ably/promises";
 
 import Styles from '../../styles/senbazuru.module.css';
 import useAuth from '../../src/auth/useAuth';
 import ChatBox from './components/chatBox';
 import i18nContext from '../../src/context/i18n';
+
+
+const ably = new Ably.Realtime.Promise({ authUrl: '/api/createTokenRequest' });
+
+function useChannel(channelName, callbackOnMessage) {
+    const channel = ably.channels.get(channelName);
+
+    const onMount = () => {
+        channel.subscribe(msg => { callbackOnMessage(msg); });
+    }
+
+    const onUnmount = () => {
+        channel.unsubscribe();
+    }
+
+    const useEffectHook = () => {
+        onMount();
+        return () => { onUnmount(); };
+    };
+
+    useEffect(useEffectHook);
+
+    return [channel, ably];
+}
 
 export default function Chat() {
     const { user, actualChat, setConversations, conversations, getConversations } = useAuth();
@@ -13,10 +37,8 @@ export default function Chat() {
     const [searching, setSearching] = React.useState(true);
     const [messages, setMessages] = React.useState([]);
     const [newMessage, setNewMessage] = React.useState("");
-    const newMessageIsEmpty = newMessage.trim().length === 0;
     const [arrivalMessage, setArrivalMessage] = React.useState(null);
     const [sending, setSending] = React.useState(false);
-
 
     const [channel, ably] = useChannel("chat-demo", (socket) => {
         if (socket.data.receiverId != user._id) {
