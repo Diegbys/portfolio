@@ -47,7 +47,7 @@ export default function Chat({ refreshSendMessage, arrivalMessage }) {
         }
         getConversations();
 
-    }, [arrivalMessage, actualChat, getConversations]);
+    }, [arrivalMessage, actualChat]);
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {

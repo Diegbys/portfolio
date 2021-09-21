@@ -24,7 +24,7 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
             setLoading(false);
         }
         getConvs();
-    }, [getConversations])
+    }, [])
 
     const drawer = (
         <PrincipalDrawer
