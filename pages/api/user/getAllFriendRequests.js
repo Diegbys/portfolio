@@ -11,6 +11,7 @@ export default async function handler(req, res) {
             firstName: 1,
             lastName: 1,
             email: 1,
+            imgUrl: 1
         }).lean();
 
         return res.status(200).json({

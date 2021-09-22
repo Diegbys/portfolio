@@ -5,9 +5,11 @@ import Axios from 'axios';
 
 import useAuth from '../../../src/auth/useAuth';
 import Styles from '../../../styles/senbazuru.module.css';
+import i18nContext from '../../../src/context/i18n';
 
 export default function UserConfiguration({ setUserConfiguration }) {
     const { user, setLoading } = useAuth();
+    const { i18n } = React.useContext(i18nContext);
 
     const [imageSelected, setImageSelected] = React.useState("");
     const [actualImage, setActualImage] = React.useState(user?.imgUrl)
@@ -80,7 +82,7 @@ export default function UserConfiguration({ setUserConfiguration }) {
             {showEditImage &&
                 <div className={Styles.uploadContainer}>
                     <input type="file" onChange={event => setImageSelected(event.target.files[0])} />
-                    <Button onClick={uploadImage}>Upload Image</Button>
+                    <Button onClick={uploadImage}>{i18n.upload_image}</Button>
                 </div>
             }
 

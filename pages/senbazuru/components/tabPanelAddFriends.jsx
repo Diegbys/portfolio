@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
 
-export default function TabPanelAddFriends({ users, setUsers, friends, user }) {
+export default function TabPanelAddFriends({ users, setUsers, user }) {
     const [loading, setLoading] = React.useState(false);
 
     const sendFriendRequest = async (friendId) => {
@@ -85,7 +85,11 @@ export default function TabPanelAddFriends({ users, setUsers, friends, user }) {
                     let sended = globalUser.friendsRequests.includes(user._id);
                     return (
                         <ListItem key={index} className={Styles.listItemUser}>
-                            <Avatar alt="Remy Sharp" src='./img/header.png' />
+                            
+                            <Avatar
+                                src={globalUser.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${globalUser.imgUrl}` : './img/header.png'}
+                            />
+
                             <div className={Styles.listAdd}>
                                 <Typography variant="subtitle1">
                                     {globalUser.firstName} {globalUser.lastName}

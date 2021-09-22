@@ -1,15 +1,16 @@
 import React from 'react';
 import { Typography, Divider, IconButton, ListItem, Avatar, CircularProgress } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import DeleteIcon from '@material-ui/icons/Delete';
-
-import Styles from '../../../styles/senbazuru.module.css';
-import ListSkeleton from '../components/listSkeleton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
+import Styles from '../../../styles/senbazuru.module.css';
+import ListSkeleton from '../components/listSkeleton';
+import i18nContext from '../../../src/context/i18n';
+
 export default function TabPanelFriendRequests({ friendRequests, loading, user, setFriendRequests }) {
     const [sending, setSending] = React.useState(false);
+    const { i18n } = React.useContext(i18nContext);
 
     const cancelOrAccept = async (action, requesterId) => {
         setSending(true);
@@ -25,8 +26,6 @@ export default function TabPanelFriendRequests({ friendRequests, loading, user, 
                     userId: user._id
                 })
             });
-
-            const dataJson = await res.json();
 
             setSending(false);
             setFriendRequests(prev => {
@@ -52,7 +51,9 @@ export default function TabPanelFriendRequests({ friendRequests, loading, user, 
                 friendRequests?.length > 0 ?
                     friendRequests.map((requester, index) => (
                         <ListItem key={index} className={Styles.listItemUser}>
-                            <Avatar alt="Remy Sharp" src='./img/header.png' />
+                            <Avatar
+                                src={requester.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${requester.imgUrl}` : './img/header.png'}
+                            />
                             <div className={Styles.listAdd}>
                                 <Typography variant="subtitle1">
                                     {requester.firstName} {requester.lastName}
@@ -78,7 +79,7 @@ export default function TabPanelFriendRequests({ friendRequests, loading, user, 
                             </div>
                         </ListItem>
                     )) :
-                    <p>Sin peticiones</p>
+                    <p>{i18n.no_requests}</p>
             ) :
                 < ListSkeleton />
             }

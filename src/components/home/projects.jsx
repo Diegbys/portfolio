@@ -30,10 +30,7 @@ export default function Projects(props) {
         },
     ];
 
-    const openSpring = { type: "spring", stiffness: 200, damping: 30 };
-    const imageHasLoaded = true;
-
-    const Card = ({ id, title, category, theme, img }) => {
+    const Card = ({ id, title, category, img }) => {
         return (
             <li className={Styles.card_project} onClick={() => setSelectedId(id)}>
                 <div className={Styles.card_content_container}>
@@ -108,11 +105,9 @@ export default function Projects(props) {
                     ))}
                 </ul>
                 <AnimatePresence>
-                    {selectedId && imageHasLoaded && <Item id={selectedId} key="item" />}
+                    {selectedId && <Item id={selectedId} key="item" />}
                 </AnimatePresence>
             </AnimateSharedLayout>
         </section>
     )
 }
-
-

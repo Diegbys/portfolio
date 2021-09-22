@@ -5,15 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Styles from '../../../styles/senbazuru.module.css';
+import i18nContext from '../../../src/context/i18n'
 import useAuth from '../../../src/auth/useAuth';
-
-const drawerWidth = 401;
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
         [theme.breakpoints.up('md')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth,
+            width: `calc(100% - 401px)`,
+            marginLeft: 401,
         },
         minHeight: 69,
         boxShadow: 'none'
@@ -30,6 +29,7 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(false);
     const { getConversations, actualChat, setActualChat, conversations, setLoading } = useAuth();
+    const { i18n } = React.useContext(i18nContext);
 
     const deleteConversation = async () => {
         setLoading(true);
@@ -51,6 +51,7 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
             await getConversations();
             setActualChat(conversations.length > 1 ? conversations[0] : false);
             setLoading(false);
+
         } catch (error) {
             console.log(error);
         }
@@ -61,7 +62,9 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <Avatar src={actualChatUser?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${actualChatUser.imgUrl}` : './img/header.png'} />
+                <Avatar
+                    src={actualChatUser?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${actualChatUser.imgUrl}` : './img/header.png'}
+                />
                 <Typography variant="h6" noWrap className={Styles.textAppBar}>
                     {actualChatUser?.firstName} {actualChatUser?.lastName}
                 </Typography>
@@ -82,6 +85,7 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
                 >
                     <MoreVertIcon />
                 </IconButton>
+
                 <Menu
                     TransitionComponent={Fade}
                     id="simple-menu"
@@ -92,9 +96,10 @@ export default function ChatUserBar({ user, handleDrawerToggle }) {
                     onClose={() => setAnchorEl(null)}
                 >
                     <MenuItem onClick={() => deleteConversation()}>
-                        Eliminar conversación
+                        {i18n.delete_conversation}
                     </MenuItem>
                 </Menu>
+
             </Toolbar>
         </AppBar >
     )

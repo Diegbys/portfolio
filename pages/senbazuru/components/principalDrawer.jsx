@@ -1,7 +1,6 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar, Hidden } from '@material-ui/core';
-import { useRouter } from 'next/dist/client/router';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
@@ -10,6 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
 import useAuth from '../../../src/auth/useAuth';
+import i18nContext from '../../../src/context/i18n';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration, close }) {
     const classes = useStyles();
-    const theme = useTheme();
     const { setActualChat, user, conversations } = useAuth();
+    const { i18n } = React.useContext(i18nContext);
 
     return (
         <div>
@@ -28,7 +28,8 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     src={user?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${user.imgUrl}` : './img/header.png'}
                     style={{ cursor: 'pointer' }}
                 />
-                <div style={{display: 'flex'}}>
+
+                <div style={{ display: 'flex' }}>
                     <Hidden mdUp implementation="css">
                         <IconButton
                             color="inherit"
@@ -37,6 +38,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                             <ArrowBackIcon />
                         </IconButton>
                     </Hidden>
+
                     <IconButton
                         color="inherit"
                         aria-label="Add friends"
@@ -44,6 +46,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     >
                         <AddIcon />
                     </IconButton>
+
                     <IconButton
                         color="inherit"
                         aria-label="open options"
@@ -52,7 +55,6 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                         <SettingsIcon />
                     </IconButton>
                 </div>
-
             </div>
 
             <Divider />
@@ -86,7 +88,7 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                                     </ListItemText>
                                 </ListItem>
                             )
-                        }) : <p>No chats yet :(</p>
+                        }) : <p>{i18n.no_chats}</p>
                 ) :
                     <ListSkeleton />
                 }

@@ -7,7 +7,6 @@ import useAuth from '../../src/auth/useAuth';
 import ChatBox from './components/chatBox';
 import i18nContext from '../../src/context/i18n';
 
-
 const ably = new Ably.Realtime.Promise({ authUrl: '/api/createTokenRequest' });
 
 function useChannel(channelName, callbackOnMessage) {
@@ -34,6 +33,7 @@ function useChannel(channelName, callbackOnMessage) {
 export default function Chat() {
     const { user, actualChat, setConversations, conversations, getConversations } = useAuth();
     const { i18n } = React.useContext(i18nContext);
+    
     const [searching, setSearching] = React.useState(true);
     const [messages, setMessages] = React.useState([]);
     const [newMessage, setNewMessage] = React.useState("");

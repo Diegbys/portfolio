@@ -1,6 +1,6 @@
 import React from 'react';
 import { CssBaseline } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
@@ -62,7 +62,7 @@ export default function Senbazuru(props) {
                         <div className={classes.toolbar} />
                         <Chat />
                     </> :
-                    <HomeSenbazuru handleDrawerToggle={handleDrawerToggle}/>
+                    <HomeSenbazuru handleDrawerToggle={handleDrawerToggle} />
                 }
             </main>
         </div>

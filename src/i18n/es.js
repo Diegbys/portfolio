@@ -46,4 +46,9 @@ export default {
     senbazuru_description: 'Senbazuru es la aplicación ideal si quieres mantenerte en contacto con tus amigos y seres queridos, envía y recibe mensajes desde cualquier dispositivo.',
     iconic_title: 'Busca las mejores ofertas de tus juegos favoritos',
     iconic_description: 'Iconic Game Deals es un sitio donde puedes encontrar en que lugares se encuentran las mejores ofertas de tus juegos favoritos y guardarlas en tu librería personal, en tiendas como Steam, Origin, etc',
+    delete_conversation: 'Eliminar conversación',
+    no_requests: 'Sin peticiones',
+    no_chats: 'Sin chats aún :(',
+    no_friends: 'Sin amigos :(',
+    upload_image: 'Subir imagen'
 }

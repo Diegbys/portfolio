@@ -7,10 +7,12 @@ import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
 import ChatIcon from '@material-ui/icons/Chat';
 import useAuth from '../../../src/auth/useAuth';
+import i18nContext from '../../../src/context/i18n';
 
 export default function TabPanelFriends({ friends, setFriends, loading, setOpenAllUsers }) {
     const [sending, setSending] = React.useState(false);
-    const { getConversations, conversations, actualChat, user, setActualChat } = useAuth();
+    const { getConversations, conversations, user, setActualChat } = useAuth();
+    const { i18n } = React.useContext(i18nContext);
 
     const deleteFriend = async (friendId) => {
         setSending(true);
@@ -103,7 +105,9 @@ export default function TabPanelFriends({ friends, setFriends, loading, setOpenA
                 friends?.length > 0 ?
                     friends.map((friend, index) => (
                         <ListItem key={index} className={Styles.listItemUser}>
-                            <Avatar alt="Remy Sharp" src='./img/header.png' />
+                            <Avatar
+                                src={friend.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${friend.imgUrl}` : './img/header.png'}
+                            />
                             <div className={Styles.listAdd}>
                                 <Typography variant="subtitle1">
                                     {friend.firstName} {friend.lastName}
@@ -132,7 +136,7 @@ export default function TabPanelFriends({ friends, setFriends, loading, setOpenA
                             </div>
                         </ListItem>
                     )) :
-                    <p>Sin amigos :(</p>
+                    <p>{i18n.no_friends}</p>
             ) :
                 < ListSkeleton />
             }
