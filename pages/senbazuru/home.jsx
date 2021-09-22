@@ -1,15 +1,16 @@
 import React from 'react';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography, Divider, Hidden, IconButton } from '@material-ui/core';
 import { useTheme } from "@material-ui/core/styles";
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import ComputerIcon from '@material-ui/icons/Computer';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import SenbazuruIcon from '../../public/img/senbazuru.svg';
 import Styles from '../../styles/senbazuru.module.css';
 import i18nContext from '../../src/context/i18n';
 
-export default function HomeSenbazuru(props) {
+export default function HomeSenbazuru({ handleDrawerToggle }) {
     const theme = useTheme();
     const { i18n } = React.useContext(i18nContext);
     const [update, setUpdate] = React.useState(0);
@@ -30,7 +31,7 @@ export default function HomeSenbazuru(props) {
                 animate="visible"
                 transition={{ type: "just", duration: 2 }}
             >
-                <Image src={SenbazuruIcon} width={300} height={300} alt="Senbazuru icon"/>
+                <Image src={SenbazuruIcon} width={300} height={300} alt="Senbazuru icon" />
             </motion.div>
             <motion.div
                 variants={text1Variant}
@@ -63,6 +64,14 @@ export default function HomeSenbazuru(props) {
                     {i18n.created_by}
                 </Typography>
             </motion.div>
+            <Hidden mdUp implementation="css" className={Styles.homeMenuIcon}>
+                <IconButton
+                    color="inherit"
+                    onClick={() => handleDrawerToggle()}
+                >
+                    <MenuIcon />
+                </IconButton>
+            </Hidden>
         </div>
     )
 }

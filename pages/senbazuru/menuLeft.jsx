@@ -31,12 +31,13 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
             loading={loading}
             setOpenAllUsers={setOpenAllUsers}
             setUserConfiguration={setUserConfiguration}
+            close={handleDrawerToggle}
         />
     );
 
     return (
         <nav className={Styles.drawer} aria-label="mailbox folders">
-            <Hidden smUp implementation="css">
+            <Hidden mdUp implementation="css">
                 <Drawer
                     container={container}
                     variant="temporary"
@@ -49,7 +50,7 @@ export default function MenuLeft({ handleDrawerToggle, window, mobileOpen }) {
                     {drawer}
                 </Drawer>
             </Hidden>
-            <Hidden xsDown implementation="css">
+            <Hidden smDown implementation="css">
                 <Drawer
                     classes={{ paper: Styles.drawerPaper }}
                     variant="permanent"

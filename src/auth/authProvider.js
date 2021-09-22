@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [onlineUsers, setOnlineUsers] = useState([]);
     const [conversations, setConversations] = useState([]);
     const [actualChat, setActualChat] = useState(null);
 
@@ -55,8 +54,6 @@ export default function AuthProvider({ children }) {
         getConversations,
         actualChat,
         setActualChat,
-        setOnlineUsers,
-        onlineUsers
     }
 
     return (

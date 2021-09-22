@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar, Badge } from '@material-ui/core';
+import { Typography, Divider, IconButton, List, ListItem, ListItemText, Avatar, Hidden } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
 import AddIcon from '@material-ui/icons/Add';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Styles from '../../../styles/senbazuru.module.css';
 import ListSkeleton from '../components/listSkeleton';
@@ -14,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration }) {
+export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfiguration, close }) {
     const classes = useStyles();
     const theme = useTheme();
-    const { setActualChat, user, conversations, onlineUsers } = useAuth();
+    const { setActualChat, user, conversations } = useAuth();
 
     return (
         <div>
@@ -27,7 +28,15 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     src={user?.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${user.imgUrl}` : './img/header.png'}
                     style={{ cursor: 'pointer' }}
                 />
-                <div>
+                <div style={{display: 'flex'}}>
+                    <Hidden mdUp implementation="css">
+                        <IconButton
+                            color="inherit"
+                            onClick={() => close()}
+                        >
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Hidden>
                     <IconButton
                         color="inherit"
                         aria-label="Add friends"
@@ -60,20 +69,13 @@ export default function PrincipalDrawer({ setOpenAllUsers, loading, setUserConfi
                     conversations.length > 0 ?
                         conversations.map((conversation, index) => {
                             let member = conversation.members.filter(e => e._id != user._id)[0];
-                            
+
                             return (
                                 <ListItem key={index} button className={Styles.listItemUser} onClick={() => setActualChat(conversation)}>
-                                    <Badge
-                                        overlap="circular"
-                                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                        variant="dot"
-                                        color="primary"
-                                        invisible={!onlineUsers.map(e => e.userId).includes(member._id)}
-                                    >
-                                        <Avatar
-                                            src={member.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${member.imgUrl}` : './img/header.png'}
-                                        />
-                                    </Badge>
+
+                                    <Avatar
+                                        src={member.imgUrl ? `https://res.cloudinary.com/mudarra/image/upload/v1631925154/${member.imgUrl}` : './img/header.png'}
+                                    />
                                     <ListItemText className={Styles.listTextUser}>
                                         <Typography variant="subtitle1">
                                             {member.firstName} {member.lastName}

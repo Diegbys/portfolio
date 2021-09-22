@@ -2,7 +2,6 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useRouter } from 'next/dist/client/router';
-import { io } from "socket.io-client";
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
@@ -19,12 +18,10 @@ const useStyles = makeStyles((theme) => ({
 const Chat = dynamic(() => import('./chat'), { ssr: false });
 
 export default function Senbazuru(props) {
-    const { user, isLogged, actualChat, setOnlineUsers } = useAuth();
+    const { user, isLogged, actualChat } = useAuth();
     const router = useRouter();
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [arrivalMessage, setArrivalMessage] = React.useState(null);
-    const socket = React.useRef();
 
     React.useEffect(() => {
         if (!isLogged()) {
@@ -65,7 +62,7 @@ export default function Senbazuru(props) {
                         <div className={classes.toolbar} />
                         <Chat />
                     </> :
-                    <HomeSenbazuru />
+                    <HomeSenbazuru handleDrawerToggle={handleDrawerToggle}/>
                 }
             </main>
         </div>

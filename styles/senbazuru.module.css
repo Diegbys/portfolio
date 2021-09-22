@@ -204,9 +204,15 @@
     margin-top: 20px !important;
 }
 
+.homeMenuIcon{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
 /* RESPONSIVE */
 
-@media (min-width: 600px) {
+@media (min-width: 960px) {
     .drawer {
         width: 400px;
         display: flex;
