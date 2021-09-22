@@ -1,99 +1,57 @@
 import React from 'react';
 import { AnimateSharedLayout, AnimatePresence, motion } from "framer-motion";
 import Image from 'next/image';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
+import Link from 'next/link';
+
 import i18nContext from '../../context/i18n';
+import Styles from '../../../styles/Home.module.css';
 
 export default function Projects(props) {
     const { i18n } = React.useContext(i18nContext);
     const [selectedId, setSelectedId] = React.useState(0);
+
     const items = [
-        // Photo by ivan Torres on Unsplash
-        {
-            id: "c",
-            category: "Pizza",
-            title: "5 Food Apps Delivering the Best of Your City",
-            pointOfInterest: 80,
-            backgroundColor: "#814A0E"
-        },
-        // Photo by Dennis Brendel on Unsplash
-        {
-            id: "f",
-            category: "How to",
-            title: "Arrange Your Apple Devices for the Gram",
-            pointOfInterest: 120,
-            backgroundColor: "#959684"
-        },
-        // Photo by Alessandra Caretto on Unsplash
         {
             id: "a",
-            category: "Pedal Power",
-            title: "Map Apps for the Superior Mode of Transport",
-            pointOfInterest: 260,
-            backgroundColor: "#5DBCD2"
+            category: "Senbazuru",
+            title: i18n.senbazuru_title,
+            img: 'prev-senbazuru.png',
+            link: '/senbazuru/login',
+            description: i18n.senbazuru_description
         },
-        // Photo by Taneli Lahtinen on Unsplash
-        {
-            id: "g",
-            category: "Holidays",
-            title: "Our Pick of Apps to Help You Escape From Apps",
-            pointOfInterest: 200,
-            backgroundColor: "#8F986D"
-        },
-        // Photo by Simone Hutsch on Unsplash
-        {
-            id: "d",
-            category: "Photography",
-            title: "The Latest Ultra-Specific Photography Editing Apps",
-            pointOfInterest: 150,
-            backgroundColor: "#FA6779"
-        },
-        // Photo by Siora Photography on Unsplash
-        {
-            id: "h",
-            category: "They're all the same",
-            title: "100 Cupcake Apps for the Cupcake Connoisseur",
-            pointOfInterest: 60,
-            backgroundColor: "#282F49"
-        },
-        // Photo by Yerlin Matu on Unsplash
-        {
-            id: "e",
-            category: "Cats",
-            title: "Yes, They Are Sociopaths",
-            pointOfInterest: 200,
-            backgroundColor: "#AC7441"
-        },
-        // Photo by Ali Abdul Rahman on Unsplash
         {
             id: "b",
-            category: "Holidays",
-            title: "Seriously the Only Escape is the Stratosphere",
-            pointOfInterest: 260,
-            backgroundColor: "#CC555B"
-        }
+            category: "Iconic Game Deals",
+            title: i18n.iconic_title,
+            img: 'prev-iconicgamedeals.png',
+            link: 'http://iconic-game-deals.herokuapp.com/',
+            description: i18n.iconic_description
+        },
     ];
+
     const openSpring = { type: "spring", stiffness: 200, damping: 30 };
     const imageHasLoaded = true;
 
-    const Card = ({ id, title, category, theme }) => {
+    const Card = ({ id, title, category, theme, img }) => {
         return (
-            <li className={`card ${theme}`} onClick={() => setSelectedId(id)}>
-                <div className="card-content-container">
-                    <motion.div className="card-content" layoutId={`card-container-${id}`}>
+            <li className={Styles.card_project} onClick={() => setSelectedId(id)}>
+                <div className={Styles.card_content_container}>
+                    <motion.div className={Styles.card_content} layoutId={`card-container-${id}`}>
                         <motion.div
-                            className="card-image-container"
+                            className={Styles.card_image_container}
                             layoutId={`card-image-container-${id}`}
                         >
-                            <Image src={require(`../../../public/img/a.jpg`)} className="card-image" alt="Project Image"/>
+                            <Image src={require(`../../../public/img/${img}`)} />
                         </motion.div>
                         <motion.div
-                            className="title-container"
+                            className={Styles.title_container}
                             layoutId={`title-container-${id}`}
                         >
-                            <span className="category">{category}</span>
+                            <span className={Styles.category}>{category}</span>
                             <h2>{title}</h2>
                         </motion.div>
+                        <div className={Styles.background_card} />
                     </motion.div>
                 </div>
             </li>
@@ -101,44 +59,35 @@ export default function Projects(props) {
     }
 
     const Item = ({ id }) => {
-        const { category, title } = items.find(item => item.id === id);
+        const { category, title, description, img, link } = items.find(item => item.id === id);
 
         return (
             <>
                 <motion.div
-                    // initial={{ opacity: 0 }}
-                    // animate={{ opacity: 1 }}
                     exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                    // transition={{ duration: 0.1, delay: 0.15 }}
-                    style={{ pointerEvents: "auto" }}
-                    className="overlay"
+                    className={Styles.overlay}
                     onClick={() => setSelectedId(0)}
                 >
                 </motion.div>
-                <div className="card-content-container open" >
-                    <motion.div
-                        // initial={{ opacity: 0 }}
-                        // transition={{ duration: 1, delay: 0.15 }}
-                        // animate={{ opacity: 1 }}
-                        className="card-content"
-                        layoutId={`card-container-${id}`}
-                    >
-                        <motion.div
-                            className="card-image-container"
-                            layoutId={`card-image-container-${selectedId}`}
-                        >
-                            <Image src={require(`../../../public/img/a.jpg`)} className="card-image" alt="project image" />
 
+                <div className={`${Styles.card_content_container} ${Styles.open}`}  >
+                    <motion.div className={Styles.card_content} layoutId={`card-container-${id}`}>
+
+                        <motion.div className={Styles.card_image_container} layoutId={`card-image-container-${selectedId}`} >
+                            <Image src={require(`../../../public/img/${img}`)} />
+                            <div className={Styles.background_card} />
                         </motion.div>
-                        <motion.div
-                            className="title-container"
-                            layoutId={`title-container-${selectedId}`}
-                        >
-                            <span className="category">{category}</span>
+
+                        <motion.div className={Styles.title_container} layoutId={`title-container-${selectedId}`}>
+                            <span className={Styles.category}>{category}</span>
                             <h2>{title}</h2>
                         </motion.div>
-                        <motion.div className="content-container" animate>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius voluptatibus consectetur culpa nesciunt eum quis itaque accusamus dolorem repellat libero nam, impedit officiis vitae reprehenderit eveniet sapiente? Fugit, facere itaque!</p>
+
+                        <motion.div className={Styles.content_container} animate>
+                            <p>{description}</p>
+                            <Link href={link} passHref>
+                                <Button color="primary" variant="outlined" >{i18n.go} </Button>
+                            </Link>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -146,11 +95,14 @@ export default function Projects(props) {
         );
     }
 
-
     return (
         <section>
+            <Typography align='left' variant="h3" className="section-title">
+                {i18n.projects}
+            </Typography>
+
             <AnimateSharedLayout type="crossfade">
-                <ul className="card-list">
+                <ul className={Styles.card_list}>
                     {items.map(card => (
                         <Card key={card.id} {...card} isSelected={card.id === selectedId} />
                     ))}
@@ -160,8 +112,6 @@ export default function Projects(props) {
                 </AnimatePresence>
             </AnimateSharedLayout>
         </section>
-
-
     )
 }
 

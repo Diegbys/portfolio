@@ -38,5 +38,11 @@ export default {
     write_message_here: 'Writte a message here',
     SENBAZURU: '',
     today: 'Today',
-    yesterday: 'Yesterday'
+    yesterday: 'Yesterday',
+    projects: 'Projects',
+    go: 'Go!',
+    senbazuru_title: 'Send messages with all your friends',
+    senbazuru_description: 'Senbazuru is the ideal application if you want to keep in touch with your friends and loved ones, send and receive messages from any device.',
+    iconic_title: 'Find the best deals on your favorite games',
+    iconic_description: 'Iconic Game Deals is a site where you can find the best deals on your favorite games and save them in your personal library, in stores like Steam, Origin, etc.',
 }

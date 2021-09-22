@@ -12,7 +12,7 @@
     margin: 0 auto;
 }
 
-.socialMediaContainer > div > svg {
+.socialMediaContainer div svg {
     color: #a7a7a7;
     margin-left: 10px;
     cursor: pointer;
@@ -21,7 +21,7 @@
     height: 40px;
 }
 
-.socialMediaContainer > div > svg:hover {
+.socialMediaContainer div svg:hover {
     color: #1976d2;
     transform: scale(1.1);
 }

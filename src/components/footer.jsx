@@ -22,9 +22,15 @@ export default function Footer() {
                     alt="Logo Image"
                 />
                 <div>
-                    <FacebookIcon />
-                    <InstagramIcon />
-                    <GitHubIcon />
+                    <a href="https://www.facebook.com/diegbysezequiel.mudarraespinoza/">
+                        <FacebookIcon />
+                    </a>
+                    <a href="https://www.instagram.com/diegbys/?hl=es">
+                        <InstagramIcon />
+                    </a>
+                    <a href="https://github.com/Diegbys">
+                        <GitHubIcon />
+                    </a>
                 </div>
             </div>
             <Typography align='center' variant="subtitle1">

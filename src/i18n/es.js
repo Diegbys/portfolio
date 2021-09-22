@@ -39,5 +39,11 @@ export default {
     write_message_here: 'Escribe un mensaje aquí',
     SENBAZURU: '',
     today: 'Hoy',
-    yesterday: 'Ayer'
+    yesterday: 'Ayer',
+    projects: 'Proyectos',
+    go: '¡Ir!',
+    senbazuru_title: 'Envía mensajes con todos tus amigos',
+    senbazuru_description: 'Senbazuru es la aplicación ideal si quieres mantenerte en contacto con tus amigos y seres queridos, envía y recibe mensajes desde cualquier dispositivo.',
+    iconic_title: 'Busca las mejores ofertas de tus juegos favoritos',
+    iconic_description: 'Iconic Game Deals es un sitio donde puedes encontrar en que lugares se encuentran las mejores ofertas de tus juegos favoritos y guardarlas en tu librería personal, en tiendas como Steam, Origin, etc',
 }

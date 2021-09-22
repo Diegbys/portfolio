@@ -23,7 +23,7 @@ export default function Home(props) {
             <div className="container">
                 <Presentation />
                 <Skills props={props} />
-                {/* <Projects/> */}
+                <Projects/>
             </div>
 
         </Layout >
