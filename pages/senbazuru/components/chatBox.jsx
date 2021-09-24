@@ -6,10 +6,12 @@ import moment from 'moment';
 import Styles from '../../../styles/senbazuru.module.css';
 import useAuth from '../../../src/auth/useAuth';
 import i18nContext from '../../../src/context/i18n';
+import ThemeContext from '../../../src/context/theme';
 
 export default function ChatBox({ messages, searching }) {
     const { user } = useAuth();
     const { i18n } = React.useContext(i18nContext);
+    const { name } = React.useContext(ThemeContext);
     const messagesEndRef = React.useRef(null);
     let lastSender = '';
     let changeDate = true;
@@ -83,7 +85,7 @@ export default function ChatBox({ messages, searching }) {
                                     ${own ? Styles.messageRigth : Styles.messageLeft} 
                                     ${evaluateLastSender(message.sender_id) && Styles.FirstMessage}`}
                             >
-                                <Typography variant='subtitle1'>
+                                <Typography variant='subtitle1' style={own && name == 'dark' ? { color: 'black' } : {}}>
                                     {message.text}
                                 </Typography>
                                 <div className={Styles.footerMessage}>
@@ -100,6 +102,6 @@ export default function ChatBox({ messages, searching }) {
 
             <div ref={messagesEndRef} style={{ padding: 10 }} />
 
-        </div>
+        </div >
     )
 }

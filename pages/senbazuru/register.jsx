@@ -3,6 +3,7 @@ import { Paper, Grid, TextField, Button, Typography, IconButton, Backdrop, Circu
 import { useRouter } from 'next/dist/client/router';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Link from 'next/link';
 
 import i18nContext from '../../src/context/i18n';
 import Styles from '../../styles/login.module.css';
@@ -230,6 +231,14 @@ export default function Login() {
                         >
                             {i18n.send}
                         </Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Link passHref href="/senbazuru/login">
+                            <Typography variant="subtitle2" color="textSecondary" className={Styles.linkRegister}>
+                                {i18n.login}
+                            </Typography>
+                        </Link>
                     </Grid>
 
                 </Grid>

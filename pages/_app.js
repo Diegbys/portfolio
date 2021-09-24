@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <i18nContext.Provider value={{ i18n: i18nConfig, set: setI18n, value: i18n }}>
-      <ThemeContext.Provider value={{ name: theme, set: setTheme }}>
+      <ThemeContext.Provider value={{ name: theme, setTheme: setTheme }}>
         <ThemeProvider theme={themeConfig} >
           <AuthProvider>
             <CssBaseline />

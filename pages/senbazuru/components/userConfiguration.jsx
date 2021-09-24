@@ -1,19 +1,28 @@
 import React from 'react';
-import { Typography, Divider, IconButton, Avatar, Button } from '@material-ui/core';
+import { Typography, Divider, IconButton, Avatar, Button, Menu, MenuItem, Fade } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Axios from 'axios';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import Brightness5Icon from '@material-ui/icons/Brightness5';
+import Image from 'next/image';
 
 import useAuth from '../../../src/auth/useAuth';
 import Styles from '../../../styles/senbazuru.module.css';
 import i18nContext from '../../../src/context/i18n';
+import ThemeContext from '../../../src/context/theme';
+import ES from '../../../public/img/es.svg';
+import EN from '../../../public/img/en.svg';
 
 export default function UserConfiguration({ setUserConfiguration }) {
     const { user, setLoading } = useAuth();
-    const { i18n } = React.useContext(i18nContext);
+    const { i18n, set, value } = React.useContext(i18nContext);
+    const { name, setTheme } = React.useContext(ThemeContext);
 
     const [imageSelected, setImageSelected] = React.useState("");
     const [actualImage, setActualImage] = React.useState(user?.imgUrl)
     const [showEditImage, setShowEditImage] = React.useState(false);
+
+    const [anchorEl, setAnchorEl] = React.useState(false);
 
     const uploadImage = async () => {
 
@@ -56,6 +65,17 @@ export default function UserConfiguration({ setUserConfiguration }) {
             });
     }
 
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = (lenguage) => {
+        setAnchorEl(null);
+        if (lenguage) {
+            set(lenguage);
+        }
+    };
+
     return (
         <div>
             <IconButton
@@ -86,6 +106,40 @@ export default function UserConfiguration({ setUserConfiguration }) {
                 </div>
             }
 
+            <div className={Styles.themeLanguageContainer}>
+                <IconButton
+                    aria-label="delete"
+                    onClick={() => setTheme(name == 'light' ? 'dark' : 'light')}
+                >
+                    {name == 'light' ? <Brightness3Icon /> : <Brightness5Icon />}
+                </IconButton>
+
+                <Button
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                >
+                    <Image src={value == 'es' ? ES : EN} alt="icon language" width={20} height={20} />
+                    <span className={Styles.flags} >{value == 'es' ? 'es' : 'en'}</span>
+                </Button>
+            </div>
+
+            <Menu
+                TransitionComponent={Fade}
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose(false)}
+            >
+                <MenuItem onClick={() => handleClose('es')}>
+                    <Image src={ES} alt="spanish lenguages" width={20} height={20} />
+                    <span className={Styles.flags} >ES</span>
+                </MenuItem>
+                <MenuItem onClick={() => handleClose('en')}>
+                    <Image src={EN} alt="spanish lenguages" width={20} height={20} />
+                    <span className={Styles.flags} >EN</span>
+                </MenuItem>
+            </Menu>
         </div >
     );
 }

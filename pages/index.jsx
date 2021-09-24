@@ -1,6 +1,4 @@
 import React from 'react';
-import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
-
 import Layout from '../src/components/Layout';
 import Header from '../src/components/home/header';
 import Skills from '../src/components/home/skills';
@@ -22,8 +20,8 @@ export default function Home(props) {
 
             <div className="container">
                 <Presentation />
+                <Projects />
                 <Skills props={props} />
-                <Projects/>
             </div>
 
         </Layout >

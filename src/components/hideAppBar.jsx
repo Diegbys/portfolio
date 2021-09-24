@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Toolbar, CssBaseline, useScrollTrigger, Button, Slide, IconButton, Menu, MenuItem, Fade } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
 import Image from 'next/image';
 import Link from 'next/link';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
@@ -14,7 +13,6 @@ import i18nContext from '../context/i18n';
 import ES from '../../public/img/es.svg';
 import EN from '../../public/img/en.svg';
 import TemporaryDrawer from '../components/drawer';
-
 
 function HideOnScroll(props) {
     const { children } = props;
@@ -52,7 +50,7 @@ export default function HideAppBar(props) {
 
     return (
         <ThemeContext.Consumer>
-            {({ name, set }) =>
+            {({ name, setTheme }) =>
                 <React.Fragment>
                     <CssBaseline />
                     <HideOnScroll {...props}>
@@ -74,7 +72,7 @@ export default function HideAppBar(props) {
                                     <IconButton
                                         aria-label="delete"
                                         className={transparent ? 'transparent' : ''}
-                                        onClick={() => set(name == 'light' ? 'dark' : 'light')}
+                                        onClick={() => setTheme(name == 'light' ? 'dark' : 'light')}
                                     >
                                         {name == 'light' ? <Brightness3Icon /> : <Brightness5Icon />}
                                     </IconButton>
